@@ -1,900 +1,3171 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Screw Stalkers</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        body.dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-        nav {
-            background: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 5px 10px;
-            margin: 5px;
-            background-color: #0070f3;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        main {
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        main.dark-mode {
-            background-color: #1e1e1e;
-        }
-        .hidden {
-            display: none;
-        }
-        .scrollable {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 72px;
-            color: white;
-            background-color: gray;
-            border-radius: 50%;
-        }
-        .profile-bubble {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            background-color: gray;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        button {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.1s ease-in-out;
-        }
-        button:active {
-            box-shadow: none;
-            transform: translateY(2px);
-        }
-        .back-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #0070f3;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .highlight {
-            background-color: yellow;
-        }
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            display: inline-block;
-            border-radius: 50%;
-        }
-        .active {
-            background-color: green;
-        }
-        .inactive {
-            background-color: gray;
-        }
-        .role-dot {
-            width: 10px;
-            height: 10px;
-            display: inline-block;
-            border-radius: 50%;
-        }
-        .manager-role {
-            background-color: gold;
-        }
-        .moderator-role {
-            background-color: silver;
-        }
-        .standard-role {
-            background-color: blue;
-        }
-        .profile-options {
-            display: flex;
-            justify-content: space-between;
-        }
-        img {
-            width: 100%;
-            height: auto;
-        }
-        .profile-row {
-            display: flex;
-            align-items: center;
-        }
-        .profile-row img {
-            margin-right: 10px;
-        }
-        .profile-bubble-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .profile-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .profile-info {
-            margin-left: 10px;
-        }
-        .profile-bubble-fixed {
-            position: fixed;
-            top: 20px;
-            right: 80px;
-        }
-        .about {
-            margin-top: 20px;
-        }
-    </style>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+h1
+	{margin-top:20.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:20.0pt;
+	font-family:"Arial",sans-serif;
+	font-weight:normal;}
+h2
+	{margin-top:.25in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:16.0pt;
+	font-family:"Arial",sans-serif;
+	font-weight:normal;}
+h3
+	{margin-top:16.0pt;
+	margin-right:0in;
+	margin-bottom:4.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Arial",sans-serif;
+	color:#434343;
+	font-weight:normal;}
+h4
+	{margin-top:14.0pt;
+	margin-right:0in;
+	margin-bottom:4.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Arial",sans-serif;
+	color:#666666;
+	font-weight:normal;}
+h5
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:4.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:#666666;
+	font-weight:normal;}
+h6
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:4.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;
+	color:#666666;
+	font-weight:normal;
+	font-style:italic;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:26.0pt;
+	font-family:"Arial",sans-serif;}
+p.MsoSubtitle, li.MsoSubtitle, div.MsoSubtitle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:16.0pt;
+	margin-left:0in;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:15.0pt;
+	font-family:"Arial",sans-serif;
+	color:#666666;}
+.MsoChpDefault
+	{font-family:"Arial",sans-serif;}
+.MsoPapDefault
+	{line-height:115%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
 </head>
-<body>
-    <nav id="nav-links" class="hidden">
-        <!-- Navigation links will be dynamically added based on the user role -->
-    </nav>
-    <nav>
-        <div>Screw Stalkers</div>
-        <div>
-            <a href="javascript:void(0)" id="login-logout" onclick="showSection('login')">Login</a>
-            <a href="javascript:void(0)" id="signup-link" onclick="showSection('signup')">Sign Up</a>
-            <a href="javascript:void(0)" id="about-link" onclick="showSection('about')">About</a>
-        </div>
-    </nav>
-    
-    <main>
-        <div id="navigation" class="hidden">
-            <h2>Navigation</h2>
-            <ul id="nav-list">
-                <li><a href="javascript:void(0)" onclick="showSection('home')">Home</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('community-forum')">Community Forum</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('chat-room')">Chat Room</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('report')">Report</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('settings')">Settings</a></li>
-            </ul>
-        </div>
 
-        <div id="home" class="hidden">
-            <h2>Welcome to Screw Stalkers</h2>
-            <p>Our platform allows users to create profiles, log in, make posts, participate in community forums, and report suspicious profiles. Join us in creating a safer online community.</p>
-            <form class="search-form" onsubmit="searchProfiles(event)">
-                <input type="text" id="search-query" name="search-query" placeholder="Search profiles..." required>
-                <button type="submit">Search</button>
-            </form>
-        </div>
-        <div id="community-forum" class="hidden scrollable">
-            <h2>Community Forum</h2>
-            <p>Join the discussion and engage with other users.</p>
-            <div id="posts">
-                <article class="profile-actions">
-                    <div class="profile-bubble-container">
-                        <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                        <span class="status-dot active"></span>
-                        <span class="role-dot manager-role"></span>
-                    </div>
-                    <div class="profile-info">
-                        <h3>Example Post Title</h3>
-                        <p>This is an example post in the community forum.</p>
-                    </div>
-                </article>
-            </div>
-            <form onsubmit="postToForum(event)">
-                <div class="profile-bubble-container">
-                    <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                    <textarea placeholder="Write a new post..." required></textarea>
-                    <input type="file" name="post-image" accept="image/*">
-                </div>
-                <button type="submit">Post</button>
-            </form>
-        </div>
-        <div id="chat-room" class="hidden scrollable">
-            <h2>Chat Room</h2>
-            <div id="chat-messages" class="scrollable">
-                <div class="profile-actions">
-                    <div class="profile-bubble-container">
-                        <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                        <span class="status-dot active"></span>
-                        <span class="role-dot manager-role"></span>
-                    </div>
-                    <div class="profile-info">
-                        <strong>John Doe</strong>: Hello everyone!
-                    </div>
-                </div>
-                <div class="profile-actions">
-                    <div class="profile-bubble-container">
-                        <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                        <span class="status-dot inactive"></span>
-                        <span class="role-dot standard-role"></span>
-                    </div>
-                    <div class="profile-info">
-                        <strong>Jane Smith</strong>: Hi John!
-                    </div>
-                </div>
-            </div>
-            <form onsubmit="sendMessage(event)">
-                <input type="text" id="chat-input" placeholder="Type a message..." required>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-        <div id="report" class="hidden">
-            <h2>Report a Profile</h2>
-            <form onsubmit ="submitReport(event)">
-                <input type="url" placeholder="Profile URL" required>
-                <select onchange="toggleOtherReason(event)" required>
-                    <option value="">Select a reason</option>
-                    <option value="cyberbullying">Cyberbullying</option>
-                    <option value="slander">Slander</option>
-                    <option value="foul-language">Foul Language</option>
-                    <option value="threats">Threats</option>
-                    <option value="other">Other</option>
-                </select>
-                <textarea id="other-reason" class="hidden" placeholder="Describe the issue"></textarea>
-                <button type="submit">Submit Report</button>
-            </form>
-        </div>
-        <div id="signup" class="hidden">
-            <h2>Sign Up</h2>
-            <form id="signup-form" onsubmit="signup(event)">
-                <input type="text" id="signup-username" placeholder="Username" required>
-                <input type="email" id="signup-email" placeholder="Email" required>
-                <input type="password" id="signup-password" placeholder="Password" required oninput="validatePassword(event)">
-                <small>Password must be at least 8 characters long, contain one or more uppercase letters, one or more lowercase letters, one or more numbers, and may include special characters.</small>
-                <button type="submit">Sign Up</button>
-            </form>
-            <p>By using this site, you agree to our <a href="javascript:void(0)" onclick="showSection('privacy-policy')">Privacy Policy</a> and <a href="javascript:void(0)" onclick="showSection('terms-of-service')">Terms of Service</a>.</p>
-        </div>
-        <div id="login">
-            <h2>Login</h2>
-            <form id="login-form" onsubmit="login(event)">
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-            <p>By using this site, you agree to our <a href="javascript:void(0)" onclick="showSection('privacy-policy')">Privacy Policy</a> and <a href="javascript:void(0)" onclick="showSection('terms-of-service')">Terms of Service</a>.</p>
-            <p>Active users: <span id="active-users-count">0</span></p>
-        </div>
-        <div id="edit-profile" class="hidden">
-            <h2>Edit Profile</h2>
-            <form onsubmit="saveProfile(event)">
-                <input type="text" id="edit-username" placeholder="Username" required>
-                <textarea id="edit-bio" placeholder="Bio"></textarea>
-                <input type="file" id="edit-photo" name="profile-photo" accept="image/*">
-                <button type="submit">Save</button>
-            </form>
-        </div>
-        <div id="manager-profile" class="hidden">
-            <h2>Manager Profile: Jordan Black</h2>
-            <p>Welcome, Jordan Black. Manage the community forum, make posts, and access the chat room.</p>
-            <ul>
-                <li><a href="javascript:void(0)" onclick="showSection('community-forum')">View Community Forum</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('community-forum')">Post to Community Forum</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('chat-room')">Chat Room</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('edit-profile')">Edit Profile</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('reports-hub')">Reports Hub</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('reported-moderators')">Reported Moderators</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('statistics')">Statistics</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('settings')">Settings</a></li>
-                <li><a href="javascript:void(0)" onclick="showSection('blocked-emails')">Blocked Emails</a></li>
-            </ul>
-        </div>
-        <div id="reports-hub" class="hidden">
-            <h2>Reports Hub</h2>
-            <div id="reported-users-list">
-                <div class="profile-row" onclick="viewReportedUser('reported-user')">
-                    <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                    <span>Reported User</span>
-                    <button onclick="toggleBan(event, 'reported-user')">Ban</button>
-                    <select id="ban-duration-reported-user" class="hidden">
-                        <option value="1">1 day</option>
-                        <option value="3">3 days</option>
-                        <option value="7">7 days</option>
-                        <option value="indefinitely">Indefinitely</option>
-                    </select>
-                </div>
-                <div id="reported-user-details" class="profile-details hidden">
-                    <p class="highlight">Reported comment: Example reported comment.</p>
-                    <div class="scrollable">
-                        <p>Message 1</p>
-                        <p>Message 2</p>
-                        <p>Message 3</p>
-                        <p>Message 4</p>
-                        <p>Message 5</p>
-                        <p>Message 6</p>
-                        <p>Message 7</p>
-                        <p>Message 8</p>
-                        <p>Message 9</p>
-                        <p>Message 10</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="reported-moderators" class="hidden">
-            <h2>Reported Moderators</h2>
-            <div id="reported-moderators-list">
-                <div class="profile-row" onclick="viewReportedModerator('reported-moderator')">
-                    <img src="https://via.placeholder.com/50" class="profile-bubble" alt="Profile Photo">
-                    <span>Reported Moderator</span>
-                    <button onclick="toggleBan(event, 'reported-moderator')">Ban</button>
-                    <select id="ban-duration-reported-moderator" class="hidden">
-                        <option value="1">1 day</option>
-                        <option value="3">3 days</option>
-                        <option value="7">7 days</option>
-                        <option value="indefinitely">Indefinitely</option>
-                    </select>
-                </div>
-                <div id="reported-moderator-details" class="profile-details hidden">
-                    <p class="highlight">Reported comment: Example reported comment.</p>
-                    <div class="scrollable">
-                        <p>Message 1</p>
-                        <p>Message 2</p>
-                        <p>Message 3</p>
-                        <p>Message 4</p>
-                        <p>Message 5</p>
-                        <p>Message 6</p>
-                        <p>Message 7</p>
-                        <p>Message 8</p>
-                        <p>Message 9</p>
-                        <p>Message 10</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="statistics" class="hidden">
-            <h2>Statistics</h2>
-            <p>Total Profiles: <span id="total-profiles">0</span></p>
-            <p>Number of Moderators: <span id="total-moderators">0</span></p>
-            <p>Site Running Time: <span id="site-running-time"></span></p>
-        </div>
-        <div id="blocked-emails" class="hidden">
-            <h2>Blocked Emails</h2>
-            <ul id="blocked-email-list">
-                <!-- Blocked emails will be listed here -->
-            </ul>
-        </div>
-        <div id="settings" class="hidden">
-            <h2>Settings</h2>
-            <form>
-                <label for="dark-mode">Dark Mode:</label>
-                <input type="checkbox" id="dark-mode" name="dark-mode" onclick="toggleDarkMode()">
-                <button type="button" onclick="deleteProfile()">Delete Profile</button>
-            </form>
-        </div>
-        <div id="privacy-policy" class="hidden">
-            <h2>Privacy Policy</h2>
-            <p>Your privacy is important to us. We guarantee that no data will be shared with third parties. We follow standard legal practices to ensure your data is protected.</p>
-        </div>
-        <div id="terms-of-service" class="hidden">
-            <h2>Terms of Service</h2>
-            <p>By using this site, you agree to the following terms:</p>
-            <ul>
-                <li>No tolerance for cyberbullying, threats, sexual content, or other potentially harmful content.</li>
-                <li>Immediate and permanent ban for violations.</li>
-                <li>Standard legal practices apply.</li>
-            </ul>
-        </div>
-        <div id="about" class="hidden">
-            <h2>About</h2>
-            <p>The first dot by a profile bubble is active status. Green is active and grey is not active. The dot on the right is role status. Silver is a moderator and gold is a manager which is a site owner.</p>
-            <p>Moderators can ban people, delete their profiles, block emails from sign up, and monitor site chats and reports. A site manager can ban and delete moderators and assume their responsibilities as well.</p>
-            <p>Wondering how to become a moderator? 6 hours in on-site time with no reports against you will qualify you for sign up. A button will appear, and all you have to do is push it for a role status change.</p>
-            <p>Remember, you can be banned permanently for inappropriate behavior both as a member and a moderator.</p>
-        </div>
-    </main>
+<body lang=EN-US style='word-wrap:break-word'>
 
-    <div id="profile-bubble" class="profile-bubble hidden profile-bubble-fixed" onclick="showSection('edit-profile')">A</div>
-    <button id="back-button" class="back-button hidden" onclick="goBack()">Back</button>
+<div class=WordSection1>
 
-    <script>
-        const users = {
-            'JordanBlack': {
-                username: 'JordanBlack',
-                role: 'manager',
-                password: 'Bruh(123)',
-                email: '',
-                verified: true,
-                bio: '',
-                photo: '',
-                active: true,
-                timeSpent: 0,
-                reports: [],
-                forumPosts: [],
-                chatMessages: [],
-                lastUsernameChange: null
-            },
-            'Jdb': {
-                username: 'Jdb',
-                role: 'moderator',
-                password: 'Bruh(123)',
-                email: '',
-                verified: true,
-                bio: '',
-                photo: '',
-                active: true,
-                timeSpent: 0,
-                reports: [],
-                forumPosts: [],
-                chatMessages: [],
-                lastUsernameChange: null
-            },
-            'reported-moderator': {
-                username: 'reported-moderator',
-                role: 'moderator',
-                password: 'Bruh(123)',
-                email: '',
-                verified: true,
-                bio: '',
-                photo: '',
-                active: true,
-                banned: false,
-                timeSpent: 0,
-                reports: [],
-                forumPosts: [],
-                chatMessages: [
-                    'Message 1', 'Message 2', 'Message 3', 'Message 4', 'Message 5',
-                    'Message 6', 'Message 7', 'Message 8', 'Message 9', 'Message 10'
-                ],
-                lastUsernameChange: null
-            },
-            'reported-user': {
-                username: 'reported-user',
-                role: 'user',
-                password: 'Bruh(123)',
-                email: '',
-                verified: true,
-                bio: '',
-                photo: '',
-                active: true,
-                banned: false,
-                timeSpent: 0,
-                reports: [],
-                forumPosts: [],
-                chatMessages: [
-                    'Message 1', 'Message 2', 'Message 3', 'Message 4', 'Message 5',
-                    'Message 6', 'Message 7', 'Message 8', 'Message 9', 'Message 10'
-                ],
-                lastUsernameChange: null
-            }
-        };
-        const blockedEmails = [];
-        let activeUsers = 0;
-        const startDate = new Date();
-        let currentUser = null;
-        let siteHistory = [];
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;!DOCTYPE html&gt;</span></p>
 
-        function login(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;html lang=&quot;en&quot;&gt;</span></p>
 
-            if (users[username] && users[username].password === password) {
-                if (users[username].banned) {
-                    alert('You have been banned from this site.');
-                    return;
-                }
-                alert('Login successful. Welcome, ' + username + '!');
-                currentUser = users[username];
-                activeUsers++;
-                document.getElementById('active-users-count').innerText = activeUsers;
-                document.getElementById('login').classList.add('hidden');
-                document.getElementById('signup-link').classList.add('hidden');
-                document.getElementById('nav-links').classList.remove('hidden');
-                document.getElementById('login-logout').innerText = 'Logout';
-                document.getElementById('login-logout').onclick = logout;
-                document.getElementById('profile-bubble').classList.remove('hidden');
-                if (currentUser.photo) {
-                    document.getElementById('profile-bubble').style.backgroundImage = `url(${currentUser.photo})`;
-                    document.getElementById('profile-bubble').innerText = '';
-                } else {
-                    document.getElementById('profile-bubble').innerText = username[0].toUpperCase();
-                }
-                document.getElementById('back-button').classList.remove('hidden');
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;head&gt;</span></p>
 
-                if (users[username].role === 'manager') {
-                    document.getElementById('manager-profile').classList.remove('hidden');
-                    addNavigationLinks(['home', 'community-forum', 'chat-room', 'report', 'settings', 'edit-profile', 'reports-hub', 'reported-moderators', 'statistics', 'blocked-emails']);
-                } else if (users[username].role === 'moderator') {
-                    document.getElementById('moderator-profile').classList.remove('hidden');
-                    addNavigationLinks(['home', 'community-forum', 'chat-room', 'report', 'settings', 'edit-profile', 'reports-hub']);
-                } else {
-                    addNavigationLinks(['home', 'community-forum', 'chat-room', 'report', 'settings']);
-                }
-                showSection('navigation');
-            } else {
-                alert('Incorrect username or password. Please try again.');
-            }
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;meta
+charset=&quot;UTF-8&quot;&gt;</span></p>
 
-        function logout() {
-            alert('Logout successful.');
-            currentUser = null;
-            activeUsers--;
-            document.getElementById('active-users-count').innerText = activeUsers;
-            document.getElementById('login-logout').innerText = 'Login';
-            document.getElementById('login-logout').onclick = function() { showSection('login'); };
-            document.getElementById('signup-link').classList.remove('hidden');
-            document.getElementById('profile-bubble').classList.add('hidden');
-            document.getElementById('nav-links').classList.add('hidden');
-            document.getElementById('back-button').classList.add('hidden');
-            showSection('navigation');
-            siteHistory = [];
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;meta name=&quot;viewport&quot;
+content=&quot;width=device-width, initial-scale=1&quot;&gt;</span></p>
 
-        function signup(event) {
-            event.preventDefault();
-            const username = document.getElementById('signup-username').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;title&gt;Screw
+Stalkers&lt;/title&gt;</span></p>
 
-            if (blockedEmails.includes(email)) {
-                alert('This email is blocked and cannot be used to create a new profile.');
-                return;
-            }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;style&gt;</span></p>
 
-            if (validatePassword({ target: { value: password } })) {
-                users[username] = {
-                    username: username,
-                    role: 'user',
-                    password: password,
-                    email: email,
-                    verified: false,
-                    bio: '',
-                    photo: '',
-                    active: false,
-                    timeSpent: 0,
-                    reports: [],
-                    forumPosts: [],
-                    chatMessages: [],
-                    lastUsernameChange: null
-                };
-                alert('Sign up successful. Please check your email to verify your account.');
-                document.getElementById('signup').classList.add('hidden');
-                showSection('login');
-                sendVerificationEmail(username, email);
-            } else {
-                alert('Password does not meet the requirements.');
-            }
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        body {</span></p>
 
-        function sendVerificationEmail(username, email) {
-            alert(`Verification email sent to ${email}. Click the link in the email to verify your account.`);
-            setTimeout(() => verifyAccount(username), 3000); // Simulate email verification link click
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            font-family: Arial,
+sans-serif;</span></p>
 
-        function verifyAccount(username) {
-            users[username].verified = true;
-            alert('Account verified. You are now logged in.');
-            loginUser(username);
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #f9f9f9;</span></p>
 
-        function loginUser(username) {
-            currentUser = users[username];
-            document.getElementById('profile-bubble').classList.remove('hidden');
-            if (currentUser.photo) {
-                document.getElementById('profile-bubble').style.backgroundImage = `url(${currentUser.photo})`;
-                document.getElementById('profile-bubble').innerText = '';
-            } else {
-                document.getElementById('profile-bubble').innerText = username[0].toUpperCase();
-            }
-            showSection('navigation');
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin: 0;</span></p>
 
-        function validatePassword(event) {
-            const password = event.target.value;
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-            return regex.test(password);
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            padding: 0;</span></p>
 
-        function toggleOtherReason(event) {
-            const otherReason = document.getElementById('other-reason');
-            if (event.target.value === 'other') {
-                otherReason.classList.remove('hidden');
-            } else {
-                otherReason.classList.add('hidden');
-            }
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            transition: background-color
+0.3s, color 0.3s;</span></p>
 
-        function showSection(sectionId) {
-            if (currentUser) {
-                siteHistory.push(sectionId);
-            }
-            document.querySelectorAll('main > div').forEach(section => {
-                section.classList.add('hidden');
-            });
-            document.getElementById(sectionId).classList.remove('hidden');
-            if (currentUser) {
-                displayUserStatus();
-            }
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
 
-        function toggleDarkMode() {        document.body.classList.toggle('dark-mode');
-        document.querySelectorAll('main').forEach(main => main.classList.toggle('dark-mode'));
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        body.dark-mode {</span></p>
 
-    function deleteProfile() {
-        if (currentUser.role === 'manager') {
-            const password = prompt('Enter your password to delete your profile:');
-            if (password === '1047') {
-                blockedEmails.push(currentUser.email);
-                delete users[currentUser.username];
-                alert('Profile deleted.');
-                logout();
-            } else {
-                alert('Incorrect password. Profile deletion canceled.');
-            }
-        } else if (currentUser) {
-            blockedEmails.push(currentUser.email);
-            delete users[currentUser.username];
-            alert('Profile deleted.');
-            logout();
-        } else {
-            alert('No profile to delete.');
-        }
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #121212;</span></p>
 
-    function sendMessage(event) {
-        event.preventDefault();
-        if (!currentUser.verified) {
-            alert('Your account is not verified. Please verify your account to send messages.');
-            return;
-        }
-        const chatInput = document.getElementById('chat-input').value;
-        const chatMessages = document.getElementById('chat-messages');
-        const newMessage = document.createElement('div');
-        newMessage.classList.add('profile-actions');
-        newMessage.innerHTML = `
-            <div class="profile-bubble-container">
-                <img src="${currentUser.photo || 'https://via.placeholder.com/50'}" class="profile-bubble" alt="Profile Photo">
-                <span class="status-dot ${currentUser.active ? 'active' : 'inactive'}"></span>
-                <span class="role-dot ${currentUser.role === 'manager' ? 'manager-role' : currentUser.role === 'moderator' ? 'moderator-role' : 'standard-role'}"></span>
-            </div>
-            <div class="profile-info">
-                <strong>${currentUser.username}</strong>: ${chatInput}
-            </div>`;
-        newMessage.dataset.timestamp = new Date();
-        chatMessages.appendChild(newMessage);
-        document.getElementById('chat-input').value = '';
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: #e0e0e0;</span></p>
 
-        currentUser.chatMessages.push({ message: chatInput, timestamp: new Date() }); // Save chat message to user's profile
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
 
-        const fourHoursAgo = new Date(Date.now() - 4 * 60 * 60 * 1000); // Remove messages older than 4 hours
-        while (chatMessages.firstChild && new Date(chatMessages.firstChild.dataset.timestamp) < fourHoursAgo) {
-            chatMessages.removeChild(chatMessages.firstChild);
-        }
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        nav {</span></p>
 
-    function postToForum(event) {
-        event.preventDefault();
-        if (!currentUser.verified) {
-            alert('Your account is not verified. Please verify your account to post.');
-            return;
-        }
-        const postText = event.target.querySelector('textarea').value;
-        const postImage = event.target.querySelector('input[type="file"]').files[0];
-        const post = document.createElement('article');
-        post.classList.add('profile-actions');
-        post.innerHTML = `
-            <div class="profile-bubble-container">
-                <img src="${currentUser.photo || 'https://via.placeholder.com/50'}" class="profile-bubble" alt="Profile Photo">
-                <span class="status-dot ${currentUser.active ? 'active' : 'inactive'}"></span>
-                <span class="role-dot ${currentUser.role === 'manager' ? 'manager-role' : currentUser.role === 'moderator' ? 'moderator-role' : 'standard-role'}"></span>
-            </div>
-            <div class="profile-info">
-                <p>${postText}</p>`;
-        if (postImage) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(postImage);
-            img.alt = 'Post Image';
-            post.appendChild(img);
-        }
-        post.innerHTML += '</div>';
-        document.getElementById('posts').appendChild(post);
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background: #333;</span></p>
 
-        currentUser.forumPosts.push({ postText, postImage, timestamp: new Date() }); // Save forum post to user's profile
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: #fff;</span></p>
 
-        event.target.querySelector('textarea').value = ''; // Clear the form
-        event.target.querySelector('input[type="file"]').value = '';
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            padding: 10px;</span></p>
 
-    function saveProfile(event) {
-        event.preventDefault();
-        const username = document.getElementById('edit-username').value;
-        const bio = document.getElementById('edit-bio').value;
-        const photo = document.getElementById('edit-photo').files[0];
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
 
-        const currentDate = new Date();
-        const sixMonths = 6 * 30 * 24 * 60 * 60 * 1000;
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            justify-content:
+space-between;</span></p>
 
-        if (currentUser.lastUsernameChange && currentDate - new Date(currentUser.lastUsernameChange) < sixMonths) {
-            alert('You can only change your username every six months.');
-            return;
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            flex-wrap: wrap;</span></p>
 
-        if (photo) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                currentUser.photo = e.target.result;
-                document.getElementById('profile-bubble').style.backgroundImage = `url(${e.target.result})`;
-                document.getElementById('profile-bubble').innerText = '';
-            };
-            reader.readAsDataURL(photo);
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
 
-        currentUser.username = username;
-        currentUser.bio = bio;
-        currentUser.lastUsernameChange = new Date();
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        nav a {</span></p>
 
-        alert('Profile saved.');
-        document.getElementById('profile-bubble').innerText = username[0].toUpperCase();
-        showSection('navigation');
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: #fff;</span></p>
 
-    function searchProfiles(event) {
-        event.preventDefault();
-        // Implement profile search logic here
-        const query = document.getElementById('search-query').value.toLowerCase();
-        const results = Object.values(users).filter(user => user.username.toLowerCase().includes(query));
-        const limitedResults = results.slice(0, 25); // Limit to 25 profiles
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            text-decoration: none;</span></p>
 
-        const resultList = document.createElement('ul');
-        limitedResults.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.classList.add('profile-row');
-            listItem.innerHTML = `
-                <img src="${user.photo || 'https://via.placeholder.com/50'}" class="profile-bubble" alt="Profile Photo">
-                <span>${user.username}</span>
-                <button onclick="viewProfile('${user.username}')">View Profile</button>`;
-            resultList.appendChild(listItem);
-        });
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            padding: 5px 10px;</span></p>
 
-        const searchResults = document.createElement('div');
-        searchResults.id = 'search-results';
-        searchResults.appendChild(resultList);
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin: 5px;</span></p>
 
-        const homeSection = document.getElementById('home');
-        homeSection.appendChild(searchResults);
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #0070f3;</span></p>
 
-    function reportContent(event, type) {
-        // Implement content reporting logic here
-        alert(`Reported ${type}.`);
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border: none;</span></p>
 
-    function goBack() {
-        siteHistory.pop(); // Remove current page
-        const lastSectionId = siteHistory.pop(); // Get previous page
-        if (lastSectionId) {
-            showSection(lastSectionId);
-        } else {
-            showSection('navigation');
-        }
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 5px;</span></p>
 
-    function updateStatistics() {
-        document.getElementById('total-profiles').innerText = Object.keys(users).length;
-        document.getElementById('total-moderators').innerText = Object.values(users).filter(user => user.role === 'moderator').length;
-        document.getElementById('site-running-time').innerText = `${Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24))} days`;
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            cursor: pointer;</span></p>
 
-    function toggleBan(event, username) {
-        event.stopPropagation();
-        const user = users[username];
-        if (currentUser.role === 'moderator' && user.role === 'moderator') {
-            alert('Moderators cannot ban other moderators.');
-            return;
-        }
-        const banDuration = document.getElementById(`ban-duration-${username}`);
-        if (banDuration.classList.contains('hidden')) {
-            banDuration.classList.remove('hidden');
-            return;
-        }
-        const duration = banDuration.value;
-        user.banned = true;
-        if (duration !== 'indefinitely') {
-            setTimeout(() => {
-                user.banned = false;
-                alert(`${username} has been unbanned.`);
-            }, duration * 24 * 60 * 60 * 1000); // Convert days to milliseconds
-            alert(`${username} has been banned for ${duration} days.`);
-        } else {
-            alert(`${username} has been banned indefinitely.`);
-            const button = document.querySelector(`button[onclick="toggleBan(event, '${username}')"]`);
-            button.textContent = 'Unban';
-        }
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
 
-    function viewReportedModerator(username) {
-        if (currentUser.role !== 'manager') {
-            alert('Only managers can view reported moderators.');
-            return;
-        }
-        const details = document.getElementById('reported-moderator-details');
-        details.classList.remove('hidden');
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        main {</span></p>
 
-    function viewReportedUser(username) {
-        const details = document.getElementById('reported-user-details');
-        details.classList.remove('hidden');
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            padding: 20px;</span></p>
 
-    function addNavigationLinks(links) {
-        const navLinks = document.getElementById('nav-links');
-        navLinks.innerHTML = '';
-        links.forEach(link => {
-            const a = document.createElement('a');
-            a.href = `javascript:void(0)`;
-            a.textContent = link.replace('-', ' ');
-            a.onclick = () => showSection(link);
-            navLinks.appendChild(a);
-        });
-    }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin: 20px auto;</span></p>
 
-    function displayUserStatus() {
-        const statusDot = document.createElement('span');
-        statusDot.classList.add('status-dot', currentUser.active ? 'active' : 'inactive');
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            max-width: 800px;</span></p>
 
-        const roleDot = document.createElement('span');
-            roleDot.classList.add('role-dot');
-            if (currentUser.role === 'manager') {
-                roleDot.classList.add('manager-role');
-            } else if (currentUser.role === 'moderator') {
-                roleDot.classList.add('moderator-role');
-            } else {
-                roleDot.classList.add('standard-role');
-            }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #fff;</span></p>
 
-            const profileBubble = document.getElementById('profile-bubble');
-            profileBubble.innerHTML = '';
-            profileBubble.appendChild(statusDot);
-            profileBubble.appendChild(roleDot);
-            if (currentUser.photo) {
-                profileBubble.style.backgroundImage = `url(${currentUser.photo})`;
-            } else {
-                profileBubble.appendChild(document.createTextNode(currentUser.username[0].toUpperCase()));
-            }
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 8px;</span></p>
 
-        function viewProfile(username) {
-            const user = users[username];
-            alert(`Viewing profile of ${user.username}`);
-            // Implement profile view logic
-        }
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            box-shadow: 0 4px 8px rgba(0,
+0, 0, 0.1);</span></p>
 
-        setInterval(updateStatistics, 60000); // Call this function to update statistics periodically
-    </script>
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            transition: background-color
+0.3s, color 0.3s;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        main.dark-mode {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #1e1e1e;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .hidden {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: none;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .scrollable {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            max-height: 400px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            overflow-y: auto;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-photo {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            width: 150px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            height: 150px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            align-items: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            justify-content: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            font-size: 72px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: white;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: gray;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 50%;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-bubble {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            width: 50px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            height: 50px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            align-items: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            justify-content: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            font-size: 24px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: white;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: gray;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 50%;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            cursor: pointer;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        button {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            box-shadow: 0 4px 8px rgba(0,
+0, 0, 0.1);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            transition: all 0.1s
+ease-in-out;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        button:active {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            box-shadow: none;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            transform: translateY(2px);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .back-button {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            position: fixed;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            bottom: 20px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            right: 20px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            padding: 10px 20px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: #0070f3;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            color: #fff;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border: none;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 5px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            cursor: pointer;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            box-shadow: 0 4px 8px rgba(0,
+0, 0, 0.1);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .highlight {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: yellow;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .status-dot {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            width: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            height: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: inline-block;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 50%;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .active {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: green;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .inactive {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: gray;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .role-dot {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            width: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            height: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: inline-block;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            border-radius: 50%;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .manager-role {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: gold;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .moderator-role {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: silver;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .standard-role {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            background-color: blue;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-options {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            justify-content:
+space-between;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        img {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            width: 100%;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            height: auto;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-row {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            align-items: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-row img {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin-right: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-bubble-container {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            align-items: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin-bottom: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-actions {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            display: flex;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            justify-content:
+space-between;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            align-items: center;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-info {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin-left: 10px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .profile-bubble-fixed {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            position: fixed;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            top: 20px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            right: 80px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        .about {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            margin-top: 20px;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;/style&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;/head&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;body&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;nav id=&quot;nav-links&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;!-- Navigation links will be
+dynamically added based on the user role --&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;/nav&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;nav&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div&gt;Screw
+Stalkers&lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;a
+href=&quot;javascript:void(0)&quot; id=&quot;login-logout&quot;
+onclick=&quot;showSection('login')&quot;&gt;Login&lt;/a&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;a
+href=&quot;javascript:void(0)&quot; id=&quot;signup-link&quot;
+onclick=&quot;showSection('signup')&quot;&gt;Sign Up&lt;/a&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;a
+href=&quot;javascript:void(0)&quot; id=&quot;about-link&quot;
+onclick=&quot;showSection('about')&quot;&gt;About&lt;/a&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;/nav&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    </span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;main&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;navigation&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+&lt;h2&gt;Navigation&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;ul
+id=&quot;nav-list&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('home')&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('community-forum')&quot;&gt;Community
+Forum&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot; onclick=&quot;showSection('chat-room')&quot;&gt;Chat
+Room&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('report')&quot;&gt;Report&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('settings')&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;home&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Welcome to Screw
+Stalkers&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Our platform allows
+users to create profiles, log in, make posts, participate in community forums,
+and report suspicious profiles. Join us in creating a safer online
+community.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+class=&quot;search-form&quot; onsubmit=&quot;searchProfiles(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;text&quot; id=&quot;search-query&quot; name=&quot;search-query&quot;
+placeholder=&quot;Search profiles...&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Search&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;community-forum&quot; class=&quot;hidden scrollable&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Community
+Forum&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Join the discussion
+and engage with other users.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+id=&quot;posts&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;article
+class=&quot;profile-actions&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;status-dot active&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;role-dot manager-role&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;profile-info&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;h3&gt;Example
+Post Title&lt;/h3&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;This is
+an example post in the community forum.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/article&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+onsubmit=&quot;postToForum(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;textarea
+placeholder=&quot;Write a new post...&quot; required&gt;&lt;/textarea&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;input
+type=&quot;file&quot; name=&quot;post-image&quot;
+accept=&quot;image/*&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Post&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;chat-room&quot;
+class=&quot;hidden scrollable&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Chat
+Room&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+id=&quot;chat-messages&quot; class=&quot;scrollable&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+class=&quot;profile-actions&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;status-dot active&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;role-dot manager-role&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;profile-info&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                       
+&lt;strong&gt;John Doe&lt;/strong&gt;: Hello everyone!</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+class=&quot;profile-actions&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;status-dot inactive&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;span
+class=&quot;role-dot standard-role&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;profile-info&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                       
+&lt;strong&gt;Jane Smith&lt;/strong&gt;: Hi John!</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+onsubmit=&quot;sendMessage(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;text&quot; id=&quot;chat-input&quot; placeholder=&quot;Type a
+message...&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Send&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;report&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Report a
+Profile&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form onsubmit
+=&quot;submitReport(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;url&quot; placeholder=&quot;Profile URL&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;select
+onchange=&quot;toggleOtherReason(event)&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;&quot;&gt;Select a reason&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;cyberbullying&quot;&gt;Cyberbullying&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;slander&quot;&gt;Slander&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;foul-language&quot;&gt;Foul Language&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;threats&quot;&gt;Threats&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;option
+value=&quot;other&quot;&gt;Other&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/select&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;textarea
+id=&quot;other-reason&quot; class=&quot;hidden&quot; placeholder=&quot;Describe
+the issue&quot;&gt;&lt;/textarea&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Submit Report&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;signup&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Sign Up&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+id=&quot;signup-form&quot; onsubmit=&quot;signup(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;text&quot; id=&quot;signup-username&quot;
+placeholder=&quot;Username&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;email&quot; id=&quot;signup-email&quot;
+placeholder=&quot;Email&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;password&quot; id=&quot;signup-password&quot;
+placeholder=&quot;Password&quot; required oninput=&quot;validatePassword(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;small&gt;Password
+must be at least 8 characters long, contain one or more uppercase letters, one
+or more lowercase letters, one or more numbers, and may include special
+characters.&lt;/small&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Sign Up&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;By using this site,
+you agree to our &lt;a href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('privacy-policy')&quot;&gt;Privacy Policy&lt;/a&gt;
+and &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;showSection('terms-of-service')&quot;&gt;Terms
+of Service&lt;/a&gt;.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;login&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Login&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+id=&quot;login-form&quot; onsubmit=&quot;login(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;text&quot; id=&quot;username&quot; placeholder=&quot;Username&quot;
+required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;password&quot; id=&quot;password&quot;
+placeholder=&quot;Password&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Login&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;By using this site,
+you agree to our &lt;a href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('privacy-policy')&quot;&gt;Privacy Policy&lt;/a&gt;
+and &lt;a href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('terms-of-service')&quot;&gt;Terms of
+Service&lt;/a&gt;.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Active users:
+&lt;span id=&quot;active-users-count&quot;&gt;0&lt;/span&gt;&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;edit-profile&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Edit
+Profile&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form
+onsubmit=&quot;saveProfile(event)&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;text&quot; id=&quot;edit-username&quot;
+placeholder=&quot;Username&quot; required&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;textarea
+id=&quot;edit-bio&quot; placeholder=&quot;Bio&quot;&gt;&lt;/textarea&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;file&quot; id=&quot;edit-photo&quot; name=&quot;profile-photo&quot;
+accept=&quot;image/*&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;submit&quot;&gt;Save&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;manager-profile&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Manager Profile:
+Jordan Black&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Welcome, Jordan
+Black. Manage the community forum, make posts, and access the chat
+room.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('community-forum')&quot;&gt;View Community
+Forum&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('community-forum')&quot;&gt;Post to Community
+Forum&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('chat-room')&quot;&gt;Chat Room&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('edit-profile')&quot;&gt;Edit
+Profile&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('reports-hub')&quot;&gt;Reports
+Hub&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('reported-moderators')&quot;&gt;Reported
+Moderators&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('statistics')&quot;&gt;Statistics&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('settings')&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;&lt;a
+href=&quot;javascript:void(0)&quot;
+onclick=&quot;showSection('blocked-emails')&quot;&gt;Blocked
+Emails&lt;/a&gt;&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;reports-hub&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Reports
+Hub&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+id=&quot;reported-users-list&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+class=&quot;profile-row&quot;
+onclick=&quot;viewReportedUser('reported-user')&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;span&gt;Reported
+User&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;button
+onclick=&quot;toggleBan(event, 'reported-user')&quot;&gt;Ban&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;select
+id=&quot;ban-duration-reported-user&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;1&quot;&gt;1 day&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;3&quot;&gt;3 days&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;7&quot;&gt;7 days&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;indefinitely&quot;&gt;Indefinitely&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/select&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+id=&quot;reported-user-details&quot; class=&quot;profile-details
+hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;p
+class=&quot;highlight&quot;&gt;Reported comment: Example reported
+comment.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;scrollable&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+1&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+2&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+3&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+4&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+5&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+6&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+7&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+8&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+9&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+10&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;reported-moderators&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Reported
+Moderators&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+id=&quot;reported-moderators-list&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+class=&quot;profile-row&quot;
+onclick=&quot;viewReportedModerator('reported-moderator')&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;img
+src=&quot;https://via.placeholder.com/50&quot; class=&quot;profile-bubble&quot;
+alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;span&gt;Reported
+Moderator&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;button
+onclick=&quot;toggleBan(event,
+'reported-moderator')&quot;&gt;Ban&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;select
+id=&quot;ban-duration-reported-moderator&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;1&quot;&gt;1 day&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;3&quot;&gt;3 days&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;7&quot;&gt;7 days&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;option
+value=&quot;indefinitely&quot;&gt;Indefinitely&lt;/option&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/select&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;div
+id=&quot;reported-moderator-details&quot; class=&quot;profile-details
+hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;p
+class=&quot;highlight&quot;&gt;Reported comment: Example reported
+comment.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;div
+class=&quot;scrollable&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+1&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+2&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+3&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+4&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+5&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+6&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+7&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+8&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+9&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                        &lt;p&gt;Message
+10&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;statistics&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+&lt;h2&gt;Statistics&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Total Profiles:
+&lt;span id=&quot;total-profiles&quot;&gt;0&lt;/span&gt;&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Number of
+Moderators: &lt;span
+id=&quot;total-moderators&quot;&gt;0&lt;/span&gt;&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Site Running Time:
+&lt;span id=&quot;site-running-time&quot;&gt;&lt;/span&gt;&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;blocked-emails&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Blocked
+Emails&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;ul
+id=&quot;blocked-email-list&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;!-- Blocked emails
+will be listed here --&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;settings&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Settings&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;label
+for=&quot;dark-mode&quot;&gt;Dark Mode:&lt;/label&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;input
+type=&quot;checkbox&quot; id=&quot;dark-mode&quot; name=&quot;dark-mode&quot;
+onclick=&quot;toggleDarkMode()&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+type=&quot;button&quot; onclick=&quot;deleteProfile()&quot;&gt;Delete
+Profile&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/form&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;privacy-policy&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Privacy
+Policy&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Your privacy is
+important to us. We guarantee that no data will be shared with third parties.
+We follow standard legal practices to ensure your data is protected.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div
+id=&quot;terms-of-service&quot; class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;Terms of
+Service&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;By using this site,
+you agree to the following terms:&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;No tolerance
+for cyberbullying, threats, sexual content, or other potentially harmful
+content.&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;Immediate and
+permanent ban for violations.&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;li&gt;Standard legal
+practices apply.&lt;/li&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/ul&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;div id=&quot;about&quot;
+class=&quot;hidden&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;h2&gt;About&lt;/h2&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;The first dot by a
+profile bubble is active status. Green is active and grey is not active. The
+dot on the right is role status. Silver is a moderator and gold is a manager
+which is a site owner.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Moderators can ban
+people, delete their profiles, block emails from sign up, and monitor site
+chats and reports. A site manager can ban and delete moderators and assume
+their responsibilities as well.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Wondering how to
+become a moderator? 6 hours in on-site time with no reports against you will
+qualify you for sign up. A button will appear, and all you have to do is push
+it for a role status change.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;p&gt;Remember, you can be
+banned permanently for inappropriate behavior both as a member and a moderator.&lt;/p&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;/main&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;div id=&quot;profile-bubble&quot;
+class=&quot;profile-bubble hidden profile-bubble-fixed&quot;
+onclick=&quot;showSection('edit-profile')&quot;&gt;A&lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;button id=&quot;back-button&quot;
+class=&quot;back-button hidden&quot;
+onclick=&quot;goBack()&quot;&gt;Back&lt;/button&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;script&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const users = {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            'JordanBlack': {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                username: 'JordanBlack',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                role: 'manager',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                password: 'Bruh(123)',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                email: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                verified: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                bio: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                photo: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                active: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                timeSpent: 0,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                reports: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                forumPosts: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                chatMessages: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                lastUsernameChange: null</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            },</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            'Jdb': {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                username: 'Jdb',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                role: 'moderator',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                password: 'Bruh(123)',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                email: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                verified: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                bio: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                photo: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                active: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                timeSpent: 0,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                reports: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                forumPosts: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                chatMessages: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                lastUsernameChange: null</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            },</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            'reported-moderator': {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                username:
+'reported-moderator',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                role: 'moderator',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                password: 'Bruh(123)',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                email: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                verified: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                bio: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                photo: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                active: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                banned: false,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                timeSpent: 0,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                reports: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                forumPosts: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                chatMessages: [</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    'Message 1', 'Message
+2', 'Message 3', 'Message 4', 'Message 5',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    'Message 6', 'Message
+7', 'Message 8', 'Message 9', 'Message 10'</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                ],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                lastUsernameChange: null</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            },</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            'reported-user': {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                username:
+'reported-user',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                role: 'user',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                password: 'Bruh(123)',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                email: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                verified: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                bio: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                photo: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                active: true,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                banned: false,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                timeSpent: 0,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                reports: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                forumPosts: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                chatMessages: [</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    'Message 1', 'Message
+2', 'Message 3', 'Message 4', 'Message 5',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    'Message 6', 'Message
+7', 'Message 8', 'Message 9', 'Message 10'</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                ],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                lastUsernameChange: null</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        };</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const blockedEmails = [];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        let activeUsers = 0;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const startDate = new Date();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        let currentUser = null;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        let siteHistory = [];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function login(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const username =
+document.getElementById('username').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const password =
+document.getElementById('password').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (users[username]
+&amp;&amp; users[username].password === password) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                if (users[username].banned)
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    alert('You have been
+banned from this site.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Login successful.
+Welcome, ' + username + '!');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                currentUser =
+users[username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                activeUsers++;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('active-users-count').innerText = activeUsers;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('login').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('signup-link').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('nav-links').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('login-logout').innerText = 'Logout';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('login-logout').onclick = logout;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                document.getElementById('profile-bubble').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                if (currentUser.photo) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+document.getElementById('profile-bubble').style.backgroundImage =
+`url(${currentUser.photo})`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    document.getElementById('profile-bubble').innerText
+= '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+document.getElementById('profile-bubble').innerText =
+username[0].toUpperCase();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('back-button').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                if (users[username].role
+=== 'manager') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+document.getElementById('manager-profile').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+addNavigationLinks(['home', 'community-forum', 'chat-room', 'report',
+'settings', 'edit-profile', 'reports-hub', 'reported-moderators', 'statistics',
+'blocked-emails']);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                } else if
+(users[username].role === 'moderator') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+document.getElementById('moderator-profile').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                   
+addNavigationLinks(['home', 'community-forum', 'chat-room', 'report',
+'settings', 'edit-profile', 'reports-hub']);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    addNavigationLinks(['home',
+'community-forum', 'chat-room', 'report', 'settings']);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+showSection('navigation');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Incorrect username
+or password. Please try again.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function logout() {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Logout successful.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            currentUser = null;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            activeUsers--;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('active-users-count').innerText = activeUsers;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            document.getElementById('login-logout').innerText
+= 'Login';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('login-logout').onclick = function() {
+showSection('login'); };</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('signup-link').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('profile-bubble').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('nav-links').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            document.getElementById('back-button').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            showSection('navigation');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            siteHistory = [];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function signup(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const username =
+document.getElementById('signup-username').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const email =
+document.getElementById('signup-email').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const password =
+document.getElementById('signup-password').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if
+(blockedEmails.includes(email)) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('This email is
+blocked and cannot be used to create a new profile.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (validatePassword({
+target: { value: password } })) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                users[username] = {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    username: username,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    role: 'user',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    password: password,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    email: email,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    verified: false,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    bio: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    photo: '',</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    active: false,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    timeSpent: 0,</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    reports: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    forumPosts: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    chatMessages: [],</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                    lastUsernameChange:
+null</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                };</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Sign up
+successful. Please check your email to verify your account.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('signup').classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                showSection('login');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+sendVerificationEmail(username, email);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Password does not
+meet the requirements.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function
+sendVerificationEmail(username, email) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert(`Verification email
+sent to ${email}. Click the link in the email to verify your account.`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            setTimeout(() =&gt;
+verifyAccount(username), 3000); // Simulate email verification link click</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function verifyAccount(username)
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            users[username].verified =
+true;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Account verified. You
+are now logged in.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            loginUser(username);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function loginUser(username) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            currentUser =
+users[username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById('profile-bubble').classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (currentUser.photo) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('profile-bubble').style.backgroundImage = `url(${currentUser.photo})`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('profile-bubble').innerText = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('profile-bubble').innerText =
+username[0].toUpperCase();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            showSection('navigation');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function validatePassword(event)
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const password =
+event.target.value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const regex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&amp;]{8,}$/;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return regex.test(password);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function toggleOtherReason(event)
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const otherReason =
+document.getElementById('other-reason');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (event.target.value ===
+'other') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+otherReason.classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+otherReason.classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function showSection(sectionId) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (currentUser) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                siteHistory.push(sectionId);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.querySelectorAll('main &gt; div').forEach(section =&gt; {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+section.classList.add('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            });</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+document.getElementById(sectionId).classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (currentUser) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                displayUserStatus();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function toggleDarkMode()
+{        document.body.classList.toggle('dark-mode');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+document.querySelectorAll('main').forEach(main =&gt;
+main.classList.toggle('dark-mode'));</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function deleteProfile() {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (currentUser.role ===
+'manager') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const password =
+prompt('Enter your password to delete your profile:');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (password === '1047') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+blockedEmails.push(currentUser.email);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                delete
+users[currentUser.username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Profile
+deleted.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                logout();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert('Incorrect
+password. Profile deletion canceled.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        } else if (currentUser) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+blockedEmails.push(currentUser.email);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            delete
+users[currentUser.username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Profile deleted.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            logout();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('No profile to
+delete.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function sendMessage(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (!currentUser.verified) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Your account is not
+verified. Please verify your account to send messages.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const chatInput =
+document.getElementById('chat-input').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const chatMessages =
+document.getElementById('chat-messages');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const newMessage = document.createElement('div');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+newMessage.classList.add('profile-actions');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        newMessage.innerHTML = `</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;img
+src=&quot;${currentUser.photo || 'https://via.placeholder.com/50'}&quot;
+class=&quot;profile-bubble&quot; alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;span
+class=&quot;status-dot ${currentUser.active ? 'active' :
+'inactive'}&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;span
+class=&quot;role-dot ${currentUser.role === 'manager' ? 'manager-role' :
+currentUser.role === 'moderator' ? 'moderator-role' :
+'standard-role'}&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+class=&quot;profile-info&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+&lt;strong&gt;${currentUser.username}&lt;/strong&gt;: ${chatInput}</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        newMessage.dataset.timestamp =
+new Date();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+chatMessages.appendChild(newMessage);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+document.getElementById('chat-input').value = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        currentUser.chatMessages.push({
+message: chatInput, timestamp: new Date() }); // Save chat message to user's
+profile</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const fourHoursAgo = new
+Date(Date.now() - 4 * 60 * 60 * 1000); // Remove messages older than 4 hours</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        while (chatMessages.firstChild
+&amp;&amp; new Date(chatMessages.firstChild.dataset.timestamp) &lt;
+fourHoursAgo) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            chatMessages.removeChild(chatMessages.firstChild);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function postToForum(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (!currentUser.verified) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Your account is not
+verified. Please verify your account to post.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const postText =
+event.target.querySelector('textarea').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const postImage =
+event.target.querySelector('input[type=&quot;file&quot;]').files[0];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const post =
+document.createElement('article');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        post.classList.add('profile-actions');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        post.innerHTML = `</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+class=&quot;profile-bubble-container&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;img
+src=&quot;${currentUser.photo || 'https://via.placeholder.com/50'}&quot;
+class=&quot;profile-bubble&quot; alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;span
+class=&quot;status-dot ${currentUser.active ? 'active' :
+'inactive'}&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;span class=&quot;role-dot
+${currentUser.role === 'manager' ? 'manager-role' : currentUser.role ===
+'moderator' ? 'moderator-role' : 'standard-role'}&quot;&gt;&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;/div&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            &lt;div
+class=&quot;profile-info&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+&lt;p&gt;${postText}&lt;/p&gt;`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (postImage) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const img =
+document.createElement('img');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            img.src =
+URL.createObjectURL(postImage);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            img.alt = 'Post Image';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            post.appendChild(img);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        post.innerHTML += '&lt;/div&gt;';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+document.getElementById('posts').appendChild(post);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        currentUser.forumPosts.push({
+postText, postImage, timestamp: new Date() }); // Save forum post to user's
+profile</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.target.querySelector('textarea').value
+= ''; // Clear the form</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+event.target.querySelector('input[type=&quot;file&quot;]').value = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function saveProfile(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const username =
+document.getElementById('edit-username').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const bio =
+document.getElementById('edit-bio').value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const photo =
+document.getElementById('edit-photo').files[0];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const currentDate = new Date();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const sixMonths = 6 * 30 * 24 *
+60 * 60 * 1000;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (currentUser.lastUsernameChange
+&amp;&amp; currentDate - new Date(currentUser.lastUsernameChange) &lt;
+sixMonths) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('You can only change
+your username every six months.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (photo) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const reader = new
+FileReader();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            reader.onload = function(e) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                currentUser.photo =
+e.target.result;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('profile-bubble').style.backgroundImage =
+`url(${e.target.result})`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+document.getElementById('profile-bubble').innerText = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            };</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            reader.readAsDataURL(photo);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        currentUser.username = username;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        currentUser.bio = bio;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        currentUser.lastUsernameChange =
+new Date();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        alert('Profile saved.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+document.getElementById('profile-bubble').innerText =
+username[0].toUpperCase();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        showSection('navigation');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function searchProfiles(event) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.preventDefault();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        // Implement profile search logic
+here</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const query =
+document.getElementById('search-query').value.toLowerCase();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const results =
+Object.values(users).filter(user =&gt;
+user.username.toLowerCase().includes(query));</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const limitedResults =
+results.slice(0, 25); // Limit to 25 profiles</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const resultList =
+document.createElement('ul');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        limitedResults.forEach(user =&gt;
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const listItem =
+document.createElement('li');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+listItem.classList.add('profile-row');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            listItem.innerHTML = `</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;img
+src=&quot;${user.photo || 'https://via.placeholder.com/50'}&quot;
+class=&quot;profile-bubble&quot; alt=&quot;Profile Photo&quot;&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+&lt;span&gt;${user.username}&lt;/span&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                &lt;button
+onclick=&quot;viewProfile('${user.username}')&quot;&gt;View
+Profile&lt;/button&gt;`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+resultList.appendChild(listItem);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        });</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const searchResults =
+document.createElement('div');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        searchResults.id =
+'search-results';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+searchResults.appendChild(resultList);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const homeSection =
+document.getElementById('home');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+homeSection.appendChild(searchResults);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function reportContent(event, type) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        // Implement content reporting
+logic here</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        alert(`Reported ${type}.`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function goBack() {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        siteHistory.pop(); // Remove
+current page</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const lastSectionId =
+siteHistory.pop(); // Get previous page</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (lastSectionId) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            showSection(lastSectionId);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            showSection('navigation');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function updateStatistics() {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        document.getElementById('total-profiles').innerText
+= Object.keys(users).length;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+document.getElementById('total-moderators').innerText =
+Object.values(users).filter(user =&gt; user.role === 'moderator').length;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        document.getElementById('site-running-time').innerText
+= `${Math.floor((new Date() - startDate) / (1000 * 60 * 60 * 24))} days`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function toggleBan(event, username) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        event.stopPropagation();</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const user = users[username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (currentUser.role === 'moderator'
+&amp;&amp; user.role === 'moderator') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Moderators cannot ban
+other moderators.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const banDuration =
+document.getElementById(`ban-duration-${username}`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if
+(banDuration.classList.contains('hidden')) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+banDuration.classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const duration =
+banDuration.value;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        user.banned = true;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (duration !== 'indefinitely')
+{</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            setTimeout(() =&gt; {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                user.banned = false;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                alert(`${username} has
+been unbanned.`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }, duration * 24 * 60 * 60 *
+1000); // Convert days to milliseconds</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert(`${username} has been
+banned for ${duration} days.`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert(`${username} has been
+banned indefinitely.`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const button =
+document.querySelector(`button[onclick=&quot;toggleBan(event,
+'${username}')&quot;]`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            button.textContent = 'Unban';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function
+viewReportedModerator(username) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        if (currentUser.role !==
+'manager') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert('Only managers can view
+reported moderators.');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            return;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const details =
+document.getElementById('reported-moderator-details');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+details.classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function viewReportedUser(username) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const details =
+document.getElementById('reported-user-details');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+details.classList.remove('hidden');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function addNavigationLinks(links) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const navLinks =
+document.getElementById('nav-links');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        navLinks.innerHTML = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        links.forEach(link =&gt; {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const a =
+document.createElement('a');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            a.href = `javascript:void(0)`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            a.textContent =
+link.replace('-', ' ');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            a.onclick = () =&gt;
+showSection(link);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            navLinks.appendChild(a);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        });</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    function displayUserStatus() {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const statusDot =
+document.createElement('span');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>       
+statusDot.classList.add('status-dot', currentUser.active ? 'active' :
+'inactive');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        const roleDot =
+document.createElement('span');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+roleDot.classList.add('role-dot');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (currentUser.role ===
+'manager') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>                roleDot.classList.add('manager-role');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else if (currentUser.role
+=== 'moderator') {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+roleDot.classList.add('moderator-role');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+roleDot.classList.add('standard-role');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const profileBubble =
+document.getElementById('profile-bubble');</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            profileBubble.innerHTML = '';</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+profileBubble.appendChild(statusDot);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>           
+profileBubble.appendChild(roleDot);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            if (currentUser.photo) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+profileBubble.style.backgroundImage = `url(${currentUser.photo})`;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            } else {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>               
+profileBubble.appendChild(document.createTextNode(currentUser.username[0].toUpperCase()));</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        function viewProfile(username) {</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            const user = users[username];</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            alert(`Viewing profile of
+${user.username}`);</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>            // Implement profile view
+logic</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        }</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>        setInterval(updateStatistics,
+60000); // Call this function to update statistics periodically</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>    &lt;/script&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;/body&gt;</span></p>
+
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:0in;margin-bottom:
+12.0pt;margin-left:0in'><span lang=EN>&lt;/html&gt;</span></p>
+
+<p class=MsoNormal><span lang=EN>&nbsp;</span></p>
+
+</div>
+
 </body>
+
 </html>
